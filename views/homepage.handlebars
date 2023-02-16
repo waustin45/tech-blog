@@ -1,0 +1,9 @@
+<main class="home-main">
+   {{#each postData as |data|}}
+            <a href="/post/posts/{{data.id}}" class="post-card">
+                <h2>{{data.title}}</h2>
+                <span>Author: {{data.author}}</span>
+                <span>{{data.date_created}}</span>
+            </a>
+        {{/each}}
+</main>
