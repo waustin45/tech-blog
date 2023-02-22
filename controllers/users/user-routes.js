@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const bcrypt = require('bcrypt');
 const { User, Post, Review } = require('../../models');
 
 router.get('/',  async (req, res) => {
@@ -32,16 +33,18 @@ router.post('/create', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({ where: { user_name: req.body.user_name } });
-
+    
     if (!userData) {
       res
         .status(401)
         .json({ message: 'Incorrect email or password, please try again' });
       return;
     }
-
-    const validPassword = await userData.checkPassword(req.body.password);
-
+    console.log(typeof req.body);
+    console.log(req.body)
+    console.log(userData);
+    const validPassword = await userData.checkPassword(req.body.password) ;
+    console.log(req.body.password, userData.password, validPassword)
     if (!validPassword) {
       res
         .status(402)
